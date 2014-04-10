@@ -1,0 +1,17 @@
+{
+  "name": "blog-utils",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Blog utils",
+  "author": "Juho Vepsäläinen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/bebraw/blog-utils.git"
+  },
+  "dependencies": {
+    "simple-twitter": "~1.0.3",
+    "annofp": "~0.2.2",
+    "annozip": "~0.2.2"
+  }
+}
