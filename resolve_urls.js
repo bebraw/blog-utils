@@ -18,18 +18,21 @@ function main() {
 }
 
 function resolveUrls(urls) {
-    async.mapLimit(urls, 4, resolveUrl, function(err, d) {
+    async.mapLimit(urls, 20, resolveUrl, function(err, d) {
         if(err) {
             return console.error(err);
         }
 
-        console.log(JSON.stringify(d, null, 4));
+        console.log(JSON.stringify(d.filter(id), null, 4));
     });
 }
 
 function resolveUrl(d, cb) {
     request.get(d.url, {
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
+        pool: {
+            maxSockets: 1000
+        }
     }, function(err, res) {
         if(err) {
             console.error(d.url, err);
@@ -42,3 +45,5 @@ function resolveUrl(d, cb) {
         cb(null, d);
     });
 }
+
+function id(a) {return a;}
