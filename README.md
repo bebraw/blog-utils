@@ -28,7 +28,7 @@ module.exports = {
 
 The tool fetches url titles.
 
-Usage: `./fetch/titles.js < data/stripped_tweets.json > data/titled_tweets.json`
+Usage: `./fetch/titles.js < stripped_tweets.json > titled_tweets.json`
 
 ## Resolvers
 
@@ -45,6 +45,14 @@ Usage: `./resolve/urls.js < tweets.json > resolved_tweets.json`
 The tool strips url parameters.
 
 Usage: `./strip/url_parameters.js < resolved_tweets.json > stripped_tweets.json`
+
+## Generators
+
+### list
+
+The tool generates a HTML list.
+
+Usage: `generate/list.js < titled_tweets.json > list.html`
 
 ## License
 
