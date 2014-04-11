@@ -24,6 +24,12 @@ module.exports = {
 };
 ```
 
+### titles
+
+The tool fetches url titles.
+
+Usage: `./fetch/titles.js < data/stripped_tweets.json > data/titled_tweets.json`
+
 ## Resolvers
 
 ### urls
