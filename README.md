@@ -6,7 +6,7 @@ Blog utils for fetching tweets, composing posts etc.
 
 The tool fetches tweets based on given user and date.
 
-Usage: `./get_tweet_urls.js twitter_config.js date > tweets.json`.
+Usage: `./get_tweet_urls.js twitter_config.js date > tweets.json`
 
 Configuration:
 
@@ -24,7 +24,9 @@ module.exports = {
 
 ## resolve_urls
 
-TODO. This should resolve urls to their full form. Idea: pipe and use request `res.request.uri.href`.
+The tool resolves Twitter urls to their full form (ie. strips bitly and such).
+
+Usage: `/resolve_urls.js < tweets.json > resolved_tweets.json`
 
 ## strip_url_parameters
 
