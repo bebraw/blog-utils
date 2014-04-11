@@ -30,7 +30,9 @@ Usage: `/resolve_urls.js < tweets.json > resolved_tweets.json`
 
 ## strip_url_parameters
 
-TODO: This should strip ? parts (url.resolve) out of list of given urls (pipe).
+The tool strips url parameters.
+
+Usage: `./strip_url_parameters.js < resolved_tweets.json > stripped_tweets.json`
 
 ## License
 
