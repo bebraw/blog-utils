@@ -53,6 +53,7 @@ function fetchTitle(d, cb) {
             split('|')[0].
             split('//')[0].
             split('«')[0].
+            split(' : ')[0].
             trim();
 
         cb(null, d);
