@@ -3,6 +3,7 @@
 'use strict';
 
 var path = require('path');
+var qs = require('querystring');
 
 var fp = require('annofp');
 var first = fp.first;
@@ -26,10 +27,15 @@ function main() {
     // TODO: parse date
     config = require(path.resolve(config));
 
-    var twitter = connect(config);
-    var qs = '?count=200&trim_user=1&exclude_replies=true&include_rts=false';
+    var twitter = connect(config.auth);
 
-    twitter.get('statuses/user_timeline', qs, function(err, data) {
+    twitter.get('statuses/user_timeline', '?' + qs.stringify({
+        count: 200,
+        'screen_name': config.user || '',
+        'trim_user': true,
+        'exclude_replies': true,
+        'include_rts': true
+    }), function(err, data) {
         if(err) {
             return console.error(err);
         }

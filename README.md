@@ -12,10 +12,13 @@ Configuration:
 
 ```
 module.exports = {
-    key: 'get via twitter dev site',
-    secret: 'get via twitter dev site',
-    token: 'get via twitter dev site',
-    tokenSecret: 'get via twitter dev site'
+    user: 'twitter user', // optional
+    auth: {
+        key: 'get via twitter dev site',
+        secret: 'get via twitter dev site',
+        token: 'get via twitter dev site',
+        tokenSecret: 'get via twitter dev site'
+    }
 };
 ```
 
