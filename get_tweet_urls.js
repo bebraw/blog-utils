@@ -5,6 +5,7 @@
 var path = require('path');
 var qs = require('querystring');
 
+var async = require('async');
 var fp = require('annofp');
 var first = fp.first;
 var filter = fp.filter;
@@ -19,25 +20,91 @@ main();
 
 function main() {
     var config = process.argv[2];
+    var date = process.argv[3];
 
     if(!config) {
         return console.error('Missing config!');
     }
 
-    // TODO: parse date
+    if(!date) {
+        return console.error('Missing date!');
+    }
+
     config = require(path.resolve(config));
 
-    var twitter = connect(config.auth);
+    getTweets({
+        client: connect(config.auth),
+        user: config.user,
+        date: new Date(date)
+    }, function(err, tweets) {
+        if(err) {
+            return console.error(err);
+        }
 
-    twitter.get('statuses/user_timeline', '?' + qs.stringify({
-        count: 200,
-        'screen_name': config.user || '',
+        console.log(JSON.stringify(tweets, null, 4));
+    });
+}
+
+function connect(config) {
+    return new Twitter(config.key, config.secret, config.token, config.tokenSecret);
+}
+
+function getTweets(o, cb) {
+    var result = [];
+    var maxId, terminate;
+
+    async.doUntil(function(cb) {
+        getStatuses({
+            client: o.client,
+            user: o.user,
+            maxId: maxId
+        }, function(err, statuses) {
+            if(err) {
+                return cb(err);
+            }
+
+            var newerThanDate = statuses.filter(function(v) {
+                return v.date >= o.date;
+            });
+
+            result = result.concat(newerThanDate);
+
+            if((newerThanDate.length < statuses.length) || !statuses.length) {
+                terminate = true;
+            }
+            else {
+                maxId = statuses.slice(-1)[0].id;
+            }
+
+            cb();
+        });
+    }, function() {
+        return terminate;
+    }, function(err) {
+        if(err) {
+            return cb(err);
+        }
+
+        return cb(null, result);
+    });
+}
+
+function getStatuses(o, cb) {
+    var opts = {
+        count: 100,
+        'screen_name': o.user || '',
         'trim_user': true,
         'exclude_replies': true,
         'include_rts': true
-    }), function(err, data) {
+    };
+
+    if(o.maxId) {
+        opts['max_id'] = o.maxId;
+    }
+
+    o.client.get('statuses/user_timeline', '?' + qs.stringify(opts), function(err, data) {
         if(err) {
-            return console.error(err);
+            return cb(err);
         }
 
         data = JSON.parse(data);
@@ -47,23 +114,14 @@ function main() {
             data.map(prop('created_at')).map(toDate),
             data.map(prop('entities')).map(prop('urls')).map(first).map(prop('expanded_url'))
         ];
-        var result = zip.apply(null, parts).map(filter.bind(null, id)).filter(lengthEquals(parts.length)).map(function(v) {
+        cb(null, zip.apply(null, parts).map(filter.bind(null, id)).filter(lengthEquals(parts.length)).map(function(v) {
             return {
                 id: v[0],
-                date: v[1],
+                date: new Date(v[1]),
                 url: v[2]
             };
-        });
-
-        // TODO: fetch tweets till given date is matched (use max_id)
-        // https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
-
-        console.log(JSON.stringify(result, null, 4));
+        }));
     });
-}
-
-function connect(config) {
-    return new Twitter(config.key, config.secret, config.token, config.tokenSecret);
 }
 
 function lengthEquals(amt) {

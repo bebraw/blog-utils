@@ -4,9 +4,9 @@ Blog utils for fetching tweets, composing posts etc.
 
 ## get_tweet_urls
 
-The tool fetches tweets associated to configuration account (possible to extend later). Still missing fetch since date.
+The tool fetches tweets based on given user and date.
 
-Usage: `./get_tweet_urls.js twitter_config.js > tweets.json`.
+Usage: `./get_tweet_urls.js twitter_config.js date > tweets.json`.
 
 Configuration:
 

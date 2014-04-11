@@ -10,8 +10,9 @@
     "url": "http://github.com/bebraw/blog-utils.git"
   },
   "dependencies": {
-    "simple-twitter": "~1.0.3",
     "annofp": "~0.2.2",
-    "annozip": "~0.2.2"
+    "annozip": "~0.2.2",
+    "async": "^0.7.0",
+    "simple-twitter": "~1.0.3"
   }
 }
