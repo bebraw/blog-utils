@@ -3,8 +3,7 @@
 'use strict';
 
 var stdin = process.openStdin();
-
-var async = require('async');
+var url = require('url');
 
 
 main();
@@ -16,28 +15,16 @@ function main() {
 
         data = data.map(function(v) {
             if(v) {
-                v.url = v.url.split('?')[0];
+                var parsed = url.parse(v.url);
+
+                if(parsed.host !== 'www.youtube.com') {
+                    v.url = v.url.split('?')[0];
+                }
             }
 
             return v;
         });
 
         console.log(JSON.stringify(data, null, 4));
-    });
-}
-
-function stripUrlParameters(urls) {
-    async.map(urls, function(d, cb) {
-        console.log()
-
-        d.url = d.url.split('?')[0];
-
-        cb(null, d);
-    }, function(err, d) {
-        if(err) {
-            return console.error(err);
-        }
-
-        console.log(JSON.stringify(d, null, 4));
     });
 }
