@@ -54,6 +54,12 @@ The tool generates a HTML list.
 
 Usage: `generate/html_list.js < titled_tweets.json > list.html`
 
+### md_list
+
+The tool generates a Markdown list.
+
+Usage: `generate/md_list.js < titled_tweets.json > list.md`
+
 ## Example
 
 The tools above may be combined using piping. See below:
