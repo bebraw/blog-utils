@@ -48,11 +48,11 @@ Usage: `./strip/url_parameters.js < resolved_tweets.json > stripped_tweets.json`
 
 ## Generators
 
-### list
+### html_list
 
 The tool generates a HTML list.
 
-Usage: `generate/list.js < titled_tweets.json > list.html`
+Usage: `generate/html_list.js < titled_tweets.json > list.html`
 
 ## Example
 
