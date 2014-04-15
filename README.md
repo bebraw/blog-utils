@@ -54,6 +54,14 @@ The tool generates a HTML list.
 
 Usage: `generate/list.js < titled_tweets.json > list.html`
 
+## Example
+
+The tools above may be combined using piping. See below:
+
+```bash
+fetch/tweet_urls.js twitter_config.js "April 1, 2014 01:00:00" | resolve/urls.js | strip/url_parameters.js | fetch/titles.js > data.json
+```
+
 ## License
 
 MIT.
