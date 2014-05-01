@@ -48,8 +48,8 @@ function fetchTitle(d, cb) {
         var $ = cheerio.load(body);
 
         d.title = $('title').text().split('·')[0].
-            split('-')[0].
-            split('—')[0].
+            split(' - ')[0].
+            split(' — ')[0].
             split('|')[0].
             split('//')[0].
             split('«')[0].
