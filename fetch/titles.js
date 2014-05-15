@@ -6,6 +6,7 @@ var stdin = process.openStdin();
 
 var async = require('async');
 var cheerio = require('cheerio');
+var ent = require('ent');
 var request = require('request');
 
 
@@ -47,7 +48,7 @@ function fetchTitle(d, cb) {
 
         var $ = cheerio.load(body);
 
-        d.title = $('title').text().split('·')[0].
+        d.title = ent.decode($('title').text().split('·')[0].
             split(' - ')[0].
             split(' — ')[0].
             split('|')[0].
@@ -55,7 +56,7 @@ function fetchTitle(d, cb) {
             split(' « ')[0].
             split(' » ')[0].
             split(' : ')[0].
-            trim();
+            trim());
 
         cb(null, d);
     });
