@@ -20,7 +20,7 @@ function main() {
 }
 
 function fetchTitles(urls) {
-    async.mapLimit(urls, 20, fetchTitle, function(err, d) {
+    async.mapLimit(urls, 10, fetchTitle, function(err, d) {
         if(err) {
             return console.error(err);
         }
@@ -37,7 +37,7 @@ function fetchTitle(d, cb) {
     request.get(d.url, {
         rejectUnauthorized: false,
         pool: {
-            maxSockets: 1000
+            maxSockets: 10
         }
     }, function(err, res, body) {
         if(err) {
