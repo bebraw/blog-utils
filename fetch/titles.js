@@ -47,20 +47,25 @@ function fetchTitle(d, cb) {
         }
 
         var $ = cheerio.load(body);
+        var text = $('title').text();
 
-        d.title = ent.decode($('title').text().split('·')[0].
-            split(' - ')[0].
-            split(' — ')[0].
-            split('|')[0].
-            split('//')[0].
-            split(' « ')[0].
-            split(' » ')[0].
-            split(' : ')[0].
-            split(' ✩ ')[0].
-            trim());
+        d.title = clean(ent.decode(text)).split('\n').join('').replace(/\s{2,}/g, ' ').trim();
 
         cb(null, d);
     });
+}
+
+function clean(str) {
+    return str.split('·')[0].
+        split(' - ')[0].
+        split(' — ')[0].
+        split('|')[0].
+        split('//')[0].
+        split(' « ')[0].
+        split(' » ')[0].
+        split(' : ')[0].
+        split(' ✩ ')[0].
+        split(' ♥ ')[0];
 }
 
 function id(a) {return a;}
