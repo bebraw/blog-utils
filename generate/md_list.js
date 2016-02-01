@@ -16,7 +16,7 @@ function main() {
 }
 
 function generateList(data) {
-    var source = '{{#items}}* [{{{title}}}]({{url}})\n{{/items}}';
+    var source = '{{#items}}* [{{{title}}}]({{url}}){{#if description}} - {{description}}{{/if}}\n{{/items}}';
     var template = Handlebars.compile(source);
 
     console.log(template({
