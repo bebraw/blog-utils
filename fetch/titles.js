@@ -51,6 +51,9 @@ function fetchTitle(d, cb) {
 
         d.title = clean(ent.decode(text)).split('\n').join('').replace(/\s{2,}/g, ' ').trim();
 
+        // Attach empty descriptions too
+        d.description = '';
+
         cb(null, d);
     });
 }
