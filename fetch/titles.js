@@ -9,23 +9,32 @@ var cheerio = require('cheerio');
 var ent = require('ent');
 var request = require('request');
 
-
-main();
+if (require.main === module) {
+    main();
+} else {
+    module.exports = fetchTitles;
+}
 
 function main() {
     stdin.setEncoding('utf8');
     stdin.on('data', function(data) {
-        fetchTitles(JSON.parse(data));
+        fetchTitles(JSON.parse(data), function(err, d) {
+            if(err) {
+                return console.error(err);
+            }
+
+            console.log(JSON.stringify(d.filter(id), null, 4));
+        });
     });
 }
 
-function fetchTitles(urls) {
+function fetchTitles(urls, cb) {
     async.mapLimit(urls, 10, fetchTitle, function(err, d) {
         if(err) {
-            return console.error(err);
+            return cb(err);
         }
 
-        console.log(JSON.stringify(d.filter(id), null, 4));
+        cb(null, d.filter(id));
     });
 }
 

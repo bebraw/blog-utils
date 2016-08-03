@@ -15,8 +15,11 @@ var zip = require('annozip');
 
 var Twitter = require('simple-twitter');
 
-
-main();
+if (require.main === module) {
+    main();
+} else {
+    module.exports = fetchTweetUrls;
+}
 
 function main() {
     var config = process.argv[2];
@@ -32,17 +35,27 @@ function main() {
 
     config = require(path.resolve(config));
 
-    getTweets({
-        client: connect(config.auth),
-        user: config.user,
-        date: new Date(date)
-    }, function(err, tweets) {
+    fetchTweetUrls({
+        config: config,
+        date: date
+    }, function(err, d) {
         if(err) {
             return console.error(err);
         }
 
-        console.log(JSON.stringify(tweets, null, 4));
+        console.log(JSON.stringify(d, null, 4));
     });
+}
+
+function fetchTweetUrls(options, cb) {
+    var config = options.config;
+    var date = options.date;
+
+    getTweets({
+        client: connect(config.auth),
+        user: config.user,
+        date: new Date(date)
+    }, cb);
 }
 
 function connect(config) {

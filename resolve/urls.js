@@ -7,23 +7,30 @@ var stdin = process.openStdin();
 var async = require('async');
 var request = require('request');
 
-
-main();
+if (require.main === module) {
+    main();
+} else {
+    module.exports = resolveUrls;
+}
 
 function main() {
     stdin.setEncoding('utf8');
-    stdin.on('data', function(data) {
-        resolveUrls(JSON.parse(data));
-    });
-}
-
-function resolveUrls(urls) {
-    async.mapLimit(urls, 20, resolveUrl, function(err, d) {
+    stdin.on('data', function(err, data) {
         if(err) {
             return console.error(err);
         }
 
-        console.log(JSON.stringify(d.filter(id), null, 4));
+        console.log(JSON.stringify(resolveUrls(JSON.parse(data)), null, 4));
+    });
+}
+
+function resolveUrls(urls, cb) {
+    async.mapLimit(urls, 20, resolveUrl, function(err, d) {
+        if(err) {
+            return cb(err);
+        }
+
+        cb(null, d.filter(id));
     });
 }
 
