@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Usage: ./fetch.js --config <config file> --date <date> > data.json
 // Equivalent to fetch/tweet_urls.js <config> 'July 14, 2016' | resolve/urls.js | strip/url_parameters.js | fetch/titles.js > data.json
+var path = require('path');
 var async = require('async');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -20,7 +21,7 @@ function main(options) {
   }
 
   fetch({
-    config: require(options.config),
+    config: require(path.resolve(options.config)),
     date: options.date
   }, function(err, output) {
     if(err) {
