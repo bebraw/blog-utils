@@ -39,7 +39,8 @@ function resolveUrl(d, cb) {
         rejectUnauthorized: false,
         pool: {
             maxSockets: 1000
-        }
+        },
+        jar: true
     }, function(err, res) {
         if(err) {
             console.error(d.url, err);

@@ -47,7 +47,8 @@ function fetchTitle(d, cb) {
         rejectUnauthorized: false,
         pool: {
             maxSockets: 10
-        }
+        },
+        jar: true
     }, function(err, res, body) {
         if(err) {
             console.error(d.url, err);
