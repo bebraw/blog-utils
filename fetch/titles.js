@@ -48,7 +48,9 @@ function fetchTitle(d, cb) {
         pool: {
             maxSockets: 10
         },
-        jar: true
+        gzip: true,
+        jar: true,
+        timeout: 5000
     }, function(err, res, body) {
         if(err) {
             console.error(d.url, err);
@@ -65,7 +67,7 @@ function fetchTitle(d, cb) {
         d.description = '';
 
         cb(null, d);
-    });
+    }).on('error', cb).end();
 }
 
 function clean(str) {
