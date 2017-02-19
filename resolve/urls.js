@@ -40,7 +40,8 @@ function resolveUrl(d, cb) {
         pool: {
             maxSockets: 1000
         },
-        jar: true
+        jar: true,
+        timeout: 5000
     }, function(err, res) {
         if(err) {
             console.error(d.url, err);
