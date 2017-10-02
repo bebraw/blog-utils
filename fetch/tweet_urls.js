@@ -6,11 +6,10 @@ var path = require('path');
 var qs = require('querystring');
 
 var async = require('async');
-var fp = require('annofp');
-var first = fp.first;
-var filter = fp.filter;
-var id = fp.id;
-var prop = fp.prop;
+var lodash = require('lodash');
+
+var prop = lodash.property;
+
 var zip = require('annozip');
 
 var Twitter = require('simple-twitter');
@@ -125,9 +124,13 @@ function getStatuses(o, cb) {
         var parts = [
             data.map(prop('id')),
             data.map(prop('created_at')).map(toDate),
-            data.map(prop('entities')).map(prop('urls')).map(first).map(prop('expanded_url'))
+            data.map(prop('entities')).map(prop('urls')).map(lodash.head).map(prop('expanded_url'))
         ];
-        cb(null, zip.apply(null, parts).map(filter.bind(null, id)).filter(lengthEquals(parts.length)).map(function(v) {
+        cb(null, zip.apply(null, parts).map(
+            o => o.filter(a => a)
+        ).filter(
+            lengthEquals(parts.length)
+        ).map(function(v) {
             return {
                 id: v[0],
                 date: new Date(v[1]),
