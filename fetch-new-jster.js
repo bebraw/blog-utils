@@ -11,7 +11,7 @@ fs.readdir(dir, (err, list) => {
     return {
       file,
       filePath: filePath,
-      stats: fs.statSync(filePath) // mtime/ctime
+      stats: fs.statSync(filePath), // mtime/ctime
     };
   });
 
@@ -32,17 +32,19 @@ fs.readdir(dir, (err, list) => {
   fetch(
     {
       config: "./jster_config.js",
-      date: parseFrom
+      date: parseFrom,
     },
     (err, output) => {
       if (err) {
-        return console.error('Failed to fetch a new jster dump');
+        return console.error("Failed to fetch a new jster dump");
       }
 
-      fs.writeFileSync(
-        path.join(dir, `jster${jsterNumber + 1}.json`),
-        JSON.stringify(output, null, 4)
-      );
+      const outputPath = path.join(dir, `jster${jsterNumber + 1}.json`);
+
+      fs.writeFileSync(outputPath, JSON.stringify(output, null, 4));
+
+      console.log(outputPath);
+
       process.exit();
     }
   );
