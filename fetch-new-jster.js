@@ -27,7 +27,7 @@ fs.readdir(dir, (err, list) => {
     10
   );
   const parseFrom = new Date();
-  parseFrom.setDate(parseFrom.getDate() - 17);
+  parseFrom.setDate(parseFrom.getDate() - 25);
 
   fetch(
     {
