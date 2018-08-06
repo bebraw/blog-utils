@@ -67,7 +67,11 @@ function fetchTitle(d, cb) {
         d.description = '';
 
         cb(null, d);
-    }).on('error', cb).end();
+    }).on('error', (e) => {
+        console.log(e);
+
+        cb();
+    }).end();
 }
 
 function clean(str) {
