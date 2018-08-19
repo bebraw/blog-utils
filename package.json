@@ -18,6 +18,7 @@
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "request": "^2.75.0",
-    "simple-twitter": "~1.0.3"
+    "simple-twitter": "~1.0.3",
+    "title-case": "^2.1.1"
   }
 }

@@ -4,7 +4,8 @@
 
 var stdin = process.openStdin();
 
-var Handlebars = require('handlebars');
+var { groupBy, toPairs } = require('lodash')
+var titleCase = require('title-case');
 
 main();
 
@@ -16,10 +17,16 @@ function main() {
 }
 
 function generateList(data) {
-    var source = '{{#items}}* [{{{title}}}]({{url}}){{#if description}} - {{description}}{{/if}}\n{{/items}}';
-    var template = Handlebars.compile(source);
+    var entries = Object.entries(groupBy(data, data => data.category))
 
-    console.log(template({
-        items: data
-    }));
+    console.log(entries.map(([category, items]) => {
+        return `
+## ${titleCase(category)}
+
+${items.map(item => `* [${item.title}](${item.url}) ${resolveDescription(item.description)}`).join('\n')}`
+    }).join('\n'))
+}
+
+function resolveDescription(description) {
+    return description ? `- ${description}` : ''
 }
