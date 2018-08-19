@@ -51,6 +51,14 @@ function fetch(options, cb) {
     fetchTweetUrls.bind(null, options),
     resolveUrls,
     stripUrlParameters,
-    fetchTitles
+    fetchTitles,
+    attachCategories
   ], cb);
+}
+
+function attachCategories(urls, cb) {
+  cb(null, urls.map(url => ({
+    ...url,
+    category: ''
+  })))
 }
