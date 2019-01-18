@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const fetch = require("./fetch");
+const transformGitHubTitles = require('./transforms/github_titles')
 
 const dir = path.join(__dirname, "./jsters");
 fs.readdir(dir, (err, list) => {
@@ -41,7 +42,7 @@ fs.readdir(dir, (err, list) => {
 
       const outputPath = path.join(dir, `jster${jsterNumber + 1}.json`);
 
-      fs.writeFileSync(outputPath, JSON.stringify(output, null, 4));
+      fs.writeFileSync(outputPath, JSON.stringify(transformGitHubTitles(output), null, 4));
 
       console.log(outputPath);
 

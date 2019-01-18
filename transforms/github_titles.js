@@ -4,17 +4,22 @@
 
 var stdin = process.openStdin();
 
-main();
+if (require.main === module) {
+    main();
+}
+else {
+    module.exports = transformGitHubTitles
+}
 
 function main() {
     stdin.setEncoding('utf8');
     stdin.on('data', function(data) {
-        transformGitHubTitles(JSON.parse(data));
+        console.log(JSON.stringify(transformGitHubTitles(JSON.parse(data)), null, 4));
     });
 }
 
 function transformGitHubTitles(data) {
-    console.log(JSON.stringify(data.map(o => ({ ...o, title: transformTitle(o.url, o.title)})), null, 4))
+    return data.map(o => ({ ...o, title: transformTitle(o.url, o.title)}))
 }
 
 function transformTitle(url, title) {
