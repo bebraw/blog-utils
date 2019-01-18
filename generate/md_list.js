@@ -4,7 +4,7 @@
 
 var stdin = process.openStdin();
 
-var { groupBy, toPairs } = require('lodash')
+var { groupBy } = require('lodash')
 var titleCase = require('title-case');
 
 main();
