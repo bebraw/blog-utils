@@ -5,7 +5,7 @@
 var stdin = process.openStdin();
 
 var async = require('async');
-var request = require('request');
+var reachableUrl = require('reachable-url')
 
 if (require.main === module) {
     main();
@@ -35,24 +35,15 @@ function resolveUrls(urls, cb) {
 }
 
 function resolveUrl(d, cb) {
-    request.get(d.url, {
-        rejectUnauthorized: false,
-        pool: {
-            maxSockets: 1000
-        },
-        jar: true,
-        timeout: 5000
-    }, function(err, res) {
-        if(err) {
-            console.error(d.url, err);
+    reachableUrl(d.url).then(({ url }) => {
+        d.url = url
 
-            return cb();
-        }
+        cb(null, d)
+    }).catch(err => {
+        console.error(err)
 
-        d.url = res.request.uri.href;
-
-        cb(null, d);
-    });
+        cb();
+    })
 }
 
 function id(a) {return a;}
