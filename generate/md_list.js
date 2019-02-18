@@ -23,10 +23,10 @@ function generateList(data) {
         return `
 ## ${titleCase(category)}
 
-${items.map(item => `* [${item.title}](${item.url}) ${resolveDescription(item.description)}`).join('\n')}`
+${items.map(item => `* [${item.title}](${item.url})${resolveDescription(item.description)}`).join('\n')}`
     }).join('\n'))
 }
 
 function resolveDescription(description) {
-    return description ? `- ${description}` : ''
+    return description ? ` - ${description}` : ''
 }
