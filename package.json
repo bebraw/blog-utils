@@ -15,7 +15,7 @@
     "cheerio": "^0.15.0",
     "ent": "^2.0.0",
     "handlebars": "^2.0.0-alpha.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "minimist": "^1.2.2",
     "reachable-url": "^1.1.8",
     "request": "^2.75.0",
