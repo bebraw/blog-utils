@@ -16,7 +16,7 @@
     "ent": "^2.0.0",
     "handlebars": "^4.3.0",
     "lodash": "^4.17.13",
-    "minimist": "^1.2.2",
+    "minimist": "^1.2.3",
     "reachable-url": "^1.1.8",
     "request": "^2.75.0",
     "simple-twitter": "~1.0.3",
