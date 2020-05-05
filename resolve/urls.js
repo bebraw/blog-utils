@@ -35,7 +35,7 @@ function resolveUrls(urls, cb) {
 }
 
 function resolveUrl(d, cb) {
-    reachableUrl(d.url).then(({ url }) => {
+    reachableUrl(d.url, { timeout: 10000 }).then(({ url }) => {
         d.url = url
 
         cb(null, d)
