@@ -17,7 +17,7 @@
     "handlebars": "^4.3.0",
     "lodash": "^4.17.13",
     "minimist": "^1.2.3",
-    "reachable-url": "^1.1.8",
+    "reachable-url": "^1.4.7",
     "request": "^2.75.0",
     "simple-twitter": "~1.0.3",
     "title-case": "^2.1.1"
