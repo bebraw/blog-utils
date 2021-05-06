@@ -14,7 +14,7 @@
     "async": "^0.7.0",
     "cheerio": "^0.15.0",
     "ent": "^2.0.0",
-    "handlebars": "^4.3.0",
+    "handlebars": "^4.7.7",
     "lodash": "^4.17.19",
     "minimist": "^1.2.3",
     "reachable-url": "^1.4.7",
