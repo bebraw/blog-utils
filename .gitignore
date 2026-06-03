@@ -5,5 +5,6 @@ input/
 data/
 data.json
 jster_config.js
+nixtu_config.js
 .env
 
