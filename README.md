@@ -60,6 +60,30 @@ The tool generates a Markdown list.
 
 Usage: `generate/md_list.js < titled_tweets.json > list.md`
 
+## JSter
+
+Create the next JSter draft from sent Buffer posts:
+
+```bash
+npm run jster:new
+```
+
+The command reads `BUFFER_SECRET` or `BUFFER_API_KEY` from `.env`, detects the
+latest local `jsterNNN`, finds the matching `Check JSter #NNN` Buffer post, and
+writes the next `jsters/jsterNNN.json` and `jsters/jsterNNN.md`.
+
+After editing categories or descriptions in the JSON, run the same command again
+to sort entries by category and regenerate Markdown. If the Markdown file already
+has intro text before the first `##` heading, the command preserves it.
+
+Useful options:
+
+```bash
+npm run jster:new -- --dry-run
+npm run jster:new -- --previous 255 --number 256
+npm run jster:new -- --organization <id> --channel <id>
+```
+
 ## Example
 
 The tools above may be combined using piping. See below:

@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.1",
   "description": "Blog utils",
+  "scripts": {
+    "jster:new": "node fetch-new-jster.js"
+  },
   "author": "Juho Vepsäläinen",
   "license": "MIT",
   "repository": {
