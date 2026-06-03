@@ -1,7 +1,9 @@
 node_modules/
 jsters/
 linkdumps/
+input/
 data/
 data.json
+jster_config.js
 .env
 
